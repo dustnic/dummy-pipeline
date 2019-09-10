@@ -1,4 +1,0 @@
-Parameters:
-  Environment: development
-  BucketName: na-codepipeline-iac-bucket
-  
