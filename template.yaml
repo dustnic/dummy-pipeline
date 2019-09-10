@@ -1,0 +1,27 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Description: Deploy S3 bucket used by CNS team as shared filestore
+Parameters:
+  Environment:
+    Description: Environment Name
+    Type: String
+  BucketName:
+    Description: Bucket Name
+    Type: String
+Resources:
+  Bucket:
+      Type: AWS::S3::Bucket
+      DeletionPolicy: Retain
+      UpdateReplacePolicy: Retain
+      Properties:
+        PublicAccessBlockConfiguration:
+          BlockPublicAcls: True
+          BlockPublicPolicy: True
+          RestrictPublicBuckets: True
+          IgnorePublicAcls: True
+        BucketEncryption:
+          ServerSideEncryptionConfiguration:
+            - ServerSideEncryptionByDefault:
+                SSEAlgorithm: aws:kms
+        VersioningConfiguration:
+          Status: Enabled
+        BucketName: !Sub ${BucketName}-${Environment}
